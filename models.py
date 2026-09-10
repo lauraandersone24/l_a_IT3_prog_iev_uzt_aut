@@ -10,3 +10,5 @@ class MediaItem(Base):
     title = Column(String, nullable=False)
     type = Column(String, nullable=False)    # "book" / "movie" / "music"
     status = Column(String, default="planned")  # "planned" / "in_progress" / "done"
+    rating = Column(Integer, nullable=True)
+    
