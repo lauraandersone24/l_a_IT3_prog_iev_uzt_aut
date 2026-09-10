@@ -31,6 +31,12 @@ def delete_item(session, item_id):
         session.commit()
     return item
 
+def set_rating(session, item_id, rating):
+    item = session.get(MediaItem, item_id)
+    if item:
+        item.rating = rating
+        session.commit()
+    return item
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
