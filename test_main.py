@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
-from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status, average_rating, search_by_title
+from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status, average_rating, search_by_title, count_by_type
 
 
 @pytest.fixture
@@ -67,3 +67,11 @@ def test_search_by_title_no_match(session):
     add_item(session, "Dune", "book")
     results = search_by_title(session, "Nonexistent")
     assert results == []
+
+def test_count_by_type(session):
+    add_item(session, "Dune", "book")
+    add_item(session, "Dune Messiah", "book")
+    add_item(session, "Interstellar", "movie")
+    counts = count_by_type(session)
+    assert counts["book"] == 2
+    assert counts["movie"] == 1
