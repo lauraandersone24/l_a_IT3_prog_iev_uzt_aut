@@ -41,6 +41,9 @@ def set_rating(session, item_id, rating):
 def get_by_type(session, type_):
     return session.query(MediaItem).filter_by(type=type_).all()
 
+def get_by_status(session, status):
+    return session.query(MediaItem).filter_by(status=status).all()
+
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
     session = Session()
