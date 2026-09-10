@@ -53,6 +53,11 @@ def average_rating(session):
 def search_by_title(session, keyword):
     return session.query(MediaItem).filter(MediaItem.title.contains(keyword)).all()
 
+def count_by_type(session):
+    from collections import Counter
+    items = session.query(MediaItem).all()
+    return Counter(item.type for item in items)
+
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
     session = Session()
