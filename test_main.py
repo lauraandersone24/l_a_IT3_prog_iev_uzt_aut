@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
-from main import add_item, mark_done, get_all
+from main import add_item, mark_done, get_all, delete_item
 
 
 @pytest.fixture
@@ -23,3 +23,8 @@ def test_mark_done(session):
     item = add_item(session, "Interstellar", "movie")
     mark_done(session, item.id)
     assert get_all(session)[0].status == "done"
+
+def test_delete_item(session):
+    item = add_item(session, "Dune", "book")
+    delete_item(session, item.id)
+    assert get_all(session) == []
