@@ -24,6 +24,13 @@ def mark_done(session, item_id):
 def get_all(session):
     return session.query(MediaItem).all()
 
+def delete_item(session, item_id):
+    item = session.get(MediaItem, item_id)
+    if item:
+        session.delete(item)
+        session.commit()
+    return item
+
 
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
