@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
-from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status, average_rating
+from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status, average_rating, search_by_title
 
 
 @pytest.fixture
@@ -56,3 +56,9 @@ def test_average_rating(session):
 
 def test_average_rating_empty(session):
     assert average_rating(session) is None
+
+def test_search_by_title(session):
+    add_item(session, "Dune", "book")
+    add_item(session, "Dune Messiah", "book")
+    results = search_by_title(session, "Dune")
+    assert len(results) == 2
