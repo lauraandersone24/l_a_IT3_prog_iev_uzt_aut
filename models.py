@@ -11,4 +11,6 @@ class MediaItem(Base):
     type = Column(String, nullable=False)    # "book" / "movie" / "music"
     status = Column(String, default="planned")  # "planned" / "in_progress" / "done"
     rating = Column(Integer, nullable=True)
-    
+
+    def __repr__(self):
+        return f"<MediaItem(title='{self.title}', type='{self.type}', status='{self.status}', rating={self.rating})>"
