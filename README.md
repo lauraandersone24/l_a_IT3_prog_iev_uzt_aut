@@ -13,3 +13,7 @@ pip install -r requirements.txt
 ## Migrācijas
 
 alembic upgrade head
+
+## Autors
+
+Laura Andersone
