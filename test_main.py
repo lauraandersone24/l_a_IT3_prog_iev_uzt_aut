@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
-from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status
+from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status, average_rating
 
 
 @pytest.fixture
@@ -46,3 +46,10 @@ def test_get_by_status(session):
     mark_done(session, item.id)
     done_items = get_by_status(session, "done")
     assert len(done_items) == 1
+
+def test_average_rating(session):
+    item1 = add_item(session, "Dune", "book")
+    item2 = add_item(session, "Interstellar", "movie")
+    set_rating(session, item1.id, 4)
+    set_rating(session, item2.id, 5)
+    assert average_rating(session) == 4.5
