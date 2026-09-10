@@ -62,3 +62,8 @@ def test_search_by_title(session):
     add_item(session, "Dune Messiah", "book")
     results = search_by_title(session, "Dune")
     assert len(results) == 2
+
+def test_search_by_title_no_match(session):
+    add_item(session, "Dune", "book")
+    results = search_by_title(session, "Nonexistent")
+    assert results == []
