@@ -50,6 +50,9 @@ def average_rating(session):
         return None
     return sum(i.rating for i in items) / len(items)
 
+def search_by_title(session, keyword):
+    return session.query(MediaItem).filter(MediaItem.title.contains(keyword)).all()
+
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
     session = Session()
