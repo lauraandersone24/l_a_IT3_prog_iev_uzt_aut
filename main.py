@@ -44,6 +44,12 @@ def get_by_type(session, type_):
 def get_by_status(session, status):
     return session.query(MediaItem).filter_by(status=status).all()
 
+def average_rating(session):
+    items = session.query(MediaItem).filter(MediaItem.rating.isnot(None)).all()
+    if not items:
+        return None
+    return sum(i.rating for i in items) / len(items)
+
 if __name__ == "__main__":
     Base.metadata.create_all(engine)
     session = Session()
