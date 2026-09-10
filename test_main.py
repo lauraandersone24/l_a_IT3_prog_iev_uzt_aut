@@ -2,7 +2,7 @@ import pytest
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from models import Base
-from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type
+from main import add_item, mark_done, get_all, delete_item, set_rating, get_by_type, get_by_status
 
 
 @pytest.fixture
@@ -40,3 +40,9 @@ def test_get_by_type(session):
     books = get_by_type(session, "book")
     assert len(books) == 1
     assert books[0].title == "Dune"
+
+def test_get_by_status(session):
+    item = add_item(session, "Dune", "book")
+    mark_done(session, item.id)
+    done_items = get_by_status(session, "done")
+    assert len(done_items) == 1
