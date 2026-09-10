@@ -53,3 +53,6 @@ def test_average_rating(session):
     set_rating(session, item1.id, 4)
     set_rating(session, item2.id, 5)
     assert average_rating(session) == 4.5
+
+def test_average_rating_empty(session):
+    assert average_rating(session) is None
